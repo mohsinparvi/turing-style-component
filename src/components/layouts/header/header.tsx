@@ -10,7 +10,7 @@ const Header = () => {
   return (
     <HeaderStyle>
       <Container>
-        <LogoStyle src={TuringLogo.src} alt="Logo" width={"30%"} />
+        <LogoStyle src={TuringLogo.src} alt="Logo" width={"20%"} />
         <Button>Logout</Button>
       </Container>
     </HeaderStyle>
