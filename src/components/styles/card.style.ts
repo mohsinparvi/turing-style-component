@@ -8,8 +8,6 @@ const Card = styled.div`
   margin: 20px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
   width: 100%;
   max-width: 400px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -30,6 +28,7 @@ const Card = styled.div`
 const CardHeader = styled.h2`
   font-size: 24px;
   margin-bottom: 10px;
+  text-align: center;
   color: #333;
 `;
 
