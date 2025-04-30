@@ -12,10 +12,15 @@ const LoginForn = () => {
         <Input type="email" placeholder="Email" required />
       </div>
       <div>
-        <Label>Password</Label>
+        <Label>
+          <span className="required">*</span>
+          Password
+        </Label>
         <Input type="password" placeholder="" required />
       </div>
-      <Button type="submit">Login</Button>
+      <Button type="submit" width="fit-content">
+        Login
+      </Button>
     </Form>
   );
 };

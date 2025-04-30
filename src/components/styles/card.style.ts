@@ -4,12 +4,12 @@ const Card = styled.div`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  padding: 20px;
+  padding: 40px 20px;
   margin: 20px 0;
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 400px;
+  max-width: 600px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   &:hover {
     transform: translateY(-5px);

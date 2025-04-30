@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-const Button = styled.button`
+interface ButtonProps {
+  width?: string;
+}
+
+const Button = styled.button<ButtonProps>`
   background-color: #155dfc;
   color: #fff;
   border: none;
@@ -8,6 +12,7 @@ const Button = styled.button`
   padding: 10px 20px;
   cursor: pointer;
   font-size: 16px;
+  width: ${(props) => (props.width ? props.width : "auto")};
   transition: background-color 0.3s ease;
   &:hover {
     background-color: #0f4c9d;
