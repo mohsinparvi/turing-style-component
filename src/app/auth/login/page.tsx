@@ -6,7 +6,7 @@ import React from "react";
 const page = () => {
   return (
     <LoginStyle>
-      <Card>
+      <Card maxWidth="500px">
         <LoginForn />
       </Card>
     </LoginStyle>

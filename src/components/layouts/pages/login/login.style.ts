@@ -6,7 +6,7 @@ const LoginStyle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  height: 80dvh;
   background-color: #f0f2f5;
   padding: 20px;
   box-sizing: border-box;

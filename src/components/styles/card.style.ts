@@ -1,6 +1,9 @@
 import styled from "styled-components";
-
-const Card = styled.div`
+type CardProps = {
+  maxWidth?: string;
+  maxHeight?: string;
+};
+const Card = styled.div<CardProps>`
   background-color: #fff;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -9,7 +12,7 @@ const Card = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 600px;
+  max-width: ${(props: CardProps) => props.maxWidth || "400px"};
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   &:hover {
     transform: translateY(-5px);
