@@ -4,10 +4,11 @@ import { Button, Dropdown, MenuProps, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
 import type { TablePaginationConfig, TableProps } from "antd";
-import { CallSection } from "./calls.style";
+import { CallHeader, CallSection } from "./calls.style";
 import { Container } from "@/components/styles";
 import { CallRecord } from "@/lib/types";
 import { formatDuration } from "@/lib/helpers";
+import AddNotes from "./add-notes";
 
 const columns: TableProps<CallRecord>["columns"] = [
   {
@@ -102,29 +103,15 @@ const columns: TableProps<CallRecord>["columns"] = [
     title: "ACTIONS",
     dataIndex: "id",
     key: "actions",
-    // render: (id: string, record: CallRecord) => (
-    //   <AddNotes
-    //     id={id}
-    //     call_type={record.call_type}
-    //     duration={record.duration}
-    //     from={record.from}
-    //     to={record.to}
-    //     via={record.via}
-    //   />
-    // ),
-    render: (isArchived: boolean) => (
-      <div
-        style={{
-          backgroundColor: isArchived ? "#ecfeff" : "#f3f4f6",
-          color: isArchived ? "#06b6d4" : "#4b5563",
-          textTransform: "capitalize",
-          borderRadius: "0.375rem",
-          padding: "0.5rem",
-          textAlign: "center",
-        }}
-      >
-        {isArchived ? "Archived" : "UnArchived"}
-      </div>
+    render: (id: string, record: CallRecord) => (
+      <AddNotes
+        id={id}
+        call_type={record.call_type}
+        duration={record.duration}
+        from={record.from}
+        to={record.to}
+        via={record.via}
+      />
     ),
   },
 ];
@@ -226,7 +213,7 @@ const CallsDatatable = () => {
     <CallSection>
       <Container>
         <h1 className="title">Turing Technologies Frontend Test</h1>
-        <div>
+        <CallHeader>
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ marginRight: 8 }}>Filter by:</span>
             <Dropdown
@@ -269,7 +256,7 @@ const CallsDatatable = () => {
             )}{" "}
             of {pagination.total} results
           </div>
-        </div>
+        </CallHeader>
       </Container>
     </CallSection>
   );

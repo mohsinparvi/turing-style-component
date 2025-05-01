@@ -1,4 +1,4 @@
-import CallsDatatable from "@/components/pages/calls/calls-datatable";
+import CallsDatatable from "@/components/layouts/pages/calls/calls-datatable";
 import React from "react";
 
 const page = () => {

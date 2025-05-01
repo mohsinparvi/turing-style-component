@@ -9,4 +9,10 @@ const CallSection = styled.section`
   width: 100%;
 `;
 
-export { CallSection };
+const CallHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export { CallSection,CallHeader };
