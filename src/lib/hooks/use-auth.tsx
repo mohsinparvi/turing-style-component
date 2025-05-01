@@ -28,6 +28,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
   const login = async (email: string, password: string) => {
     try {
+      console.log("Logging in with email:", email);
+      console.log("Logging in with password:", password)
       const response = await userLogin(email, password);
       setAccessToken(response.access_token);
       setCookie("accessToken", response.access_token);

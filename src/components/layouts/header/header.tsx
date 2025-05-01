@@ -2,7 +2,8 @@
 import React from "react";
 import HeaderStyle from "./header.style";
 import { TuringLogo } from "@/assets/images";
-import { Button, LogoStyle, Container } from "@/components/styles";
+import { LogoStyle, Container } from "@/components/styles";
+import Logout from "@/components/common/logout";
 // import logoStyle frpm '@/'
 // import {}
 // 155DFC
@@ -11,7 +12,7 @@ const Header = () => {
     <HeaderStyle>
       <Container>
         <LogoStyle src={TuringLogo.src} alt="Logo" width={"20%"} />
-        <Button>Logout</Button>
+        <Logout />
       </Container>
     </HeaderStyle>
   );

@@ -3,15 +3,7 @@ import styled from "styled-components";
 
 interface InputProps {
   icon: React.ReactNode;
-  placeholder?: string;
-  type?: string;
-  value?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  name?: string;
-  id?: string;
-  required?: boolean;
-  disabled?: boolean;
-  autoComplete?: string;
+  children: React.ReactNode;
 }
 
 const InputWrapper = styled.div`
@@ -30,7 +22,7 @@ const IconWrapper = styled.div`
   align-items: center;
 `;
 
-const StyledInput = styled.input`
+export const Input = styled.input`
   border: none;
   outline: none;
   flex: 1;
@@ -42,27 +34,13 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input: React.FC<InputProps> = ({
-  icon,
-  placeholder,
-  type,
-  value,
-  onChange,
-}) => {
+const InputGroup: React.FC<InputProps> = ({ icon, children }) => {
   return (
     <InputWrapper>
       <IconWrapper>{icon}</IconWrapper>
-      <StyledInput
-        placeholder={placeholder}
-        type={type}
-        value={value}
-        onChange={onChange}
-        autoComplete="off"
-        required
-        disabled={false}
-      />
+      {children}
     </InputWrapper>
   );
 };
 
-export default Input;
+export default InputGroup;

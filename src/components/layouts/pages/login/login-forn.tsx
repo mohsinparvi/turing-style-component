@@ -1,5 +1,12 @@
 "use client";
-import { Button, Form, Input, Label } from "@/components/styles";
+import {
+  Button,
+  Form,
+  InputGroup,
+  Label,
+  Input,
+  ErrorMessage,
+} from "@/components/styles";
 import { validateForm } from "@/lib/helpers";
 import { useAuth } from "@/lib/hooks/use-auth";
 import { LoginFormData } from "@/lib/types";
@@ -47,12 +54,15 @@ const LoginForn = () => {
       router.push("/calls");
       resetData();
     } catch (err) {
+      console.log("err");
       setIsLoading(false);
       if (err instanceof Error) {
         setValidationErrors({ email: err.message });
       } else {
         setValidationErrors({ email: "Login failed. Please try again." });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -62,8 +72,7 @@ const LoginForn = () => {
           <span className="required">*</span>
           User Name
         </Label>
-        <Input
-          type="email"
+        <InputGroup
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -80,12 +89,17 @@ const LoginForn = () => {
               <circle cx="12" cy="7" r="4" />
             </svg>
           }
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
+        >
+          <Input
+            type="text"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            placeholder="Enter your email"
+          />
+        </InputGroup>
         {validationErrors?.email && (
-          <div className="text-red-500 text-sm">{validationErrors.email}</div>
+          <ErrorMessage>{validationErrors.email}</ErrorMessage>
         )}
       </div>
       <div>
@@ -93,8 +107,7 @@ const LoginForn = () => {
           <span className="required">*</span>
           Password
         </Label>
-        <Input
-          type="password"
+        <InputGroup
           icon={
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -111,15 +124,20 @@ const LoginForn = () => {
               <path d="M7 11V7a5 5 0 0 1 10 0v4" />
             </svg>
           }
-          placeholder="Password"
-        />
+        >
+          <Input
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Enter your password"
+          />
+        </InputGroup>
         {validationErrors?.password && (
-          <div className="text-red-500 text-sm">
-            {validationErrors.password}
-          </div>
+          <ErrorMessage>{validationErrors.password}</ErrorMessage>
         )}
       </div>
-      {error && <div className="mt-4 text-red-500 text-sm">{error}</div>}
+      {error && <ErrorMessage>{error}</ErrorMessage>}
       {isLoading ? (
         <Button type="button" width="fit-content" disabled={isLoading}>
           Loading...
