@@ -11,8 +11,10 @@ const Header = () => {
   return (
     <HeaderStyle>
       <Container>
-        <LogoStyle src={TuringLogo.src} alt="Logo" width={"20%"} />
-        <Logout />
+        <div className="header-content">
+          <LogoStyle src={TuringLogo.src} alt="Logo" width={"20%"} />
+          <Logout />
+        </div>
       </Container>
     </HeaderStyle>
   );

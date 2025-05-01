@@ -1,14 +1,11 @@
-import CallsDatatable from "@/components/common/calls-datatable";
-import { Container } from "@/components/styles";
+import CallsDatatable from "@/components/pages/calls/calls-datatable";
 import React from "react";
 
 const page = () => {
   return (
-    <Container>
-      <div className="space">
-        <CallsDatatable />
-      </div>
-    </Container>
+    <div className="space">
+      <CallsDatatable />
+    </div>
   );
 };
 
