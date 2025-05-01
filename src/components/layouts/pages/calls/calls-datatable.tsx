@@ -79,6 +79,9 @@ const columns: TableProps<CallRecord>["columns"] = [
     title: "CREATED AT",
     dataIndex: "created_at",
     key: "created_at",
+    render: (createdAt: string) => {
+      return <div style={{ color: "#4b5563" }}>{createdAt.split("T")[0]}</div>;
+    },
   },
   {
     title: "STATUS",

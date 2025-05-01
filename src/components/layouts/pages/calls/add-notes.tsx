@@ -114,7 +114,9 @@ const AddNotes: FC<AddNotesProps> = ({
                 <Text>{label}</Text>
               </Col>
               <Col span={12}>
-                <Text style={extraStyle as React.CSSProperties || {}}>{value}</Text>
+                <Text style={(extraStyle as React.CSSProperties) || {}}>
+                  {value}
+                </Text>
               </Col>
             </React.Fragment>
           ))}

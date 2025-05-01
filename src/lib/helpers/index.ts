@@ -28,7 +28,16 @@ function formatDuration(seconds: number): string {
     totalMinutes !== 1 ? "s" : ""
   } ${remainingSeconds} second${remainingSeconds !== 1 ? "s" : ""}`;
 }
+const formatDate = (date: string): string => {
+  const options: Intl.DateTimeFormatOptions = {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  };
+  return new Date(date).toLocaleString("en-US", options);
+};
 
-export { validateForm, formatDuration };
-
-
+export { validateForm, formatDuration, formatDate };
