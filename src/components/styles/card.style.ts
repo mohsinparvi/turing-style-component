@@ -6,18 +6,13 @@ type CardProps = {
 const Card = styled.div<CardProps>`
   background-color: #fff;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding: 40px 20px;
   margin: 20px 0;
   display: flex;
   flex-direction: column;
   width: 100%;
   max-width: ${(props: CardProps) => props.maxWidth || "400px"};
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  &:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  }
+
   @media (max-width: 768px) {
     max-width: 100%;
     margin: 10px 0;

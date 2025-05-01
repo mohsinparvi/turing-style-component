@@ -5,6 +5,13 @@ interface InputProps {
   icon: React.ReactNode;
   placeholder?: string;
   type?: string;
+  value?: string;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  name?: string;
+  id?: string;
+  required?: boolean;
+  disabled?: boolean;
+  autoComplete?: string;
 }
 
 const InputWrapper = styled.div`
@@ -35,11 +42,25 @@ const StyledInput = styled.input`
   }
 `;
 
-const Input: React.FC<InputProps> = ({ icon, placeholder, type }) => {
+const Input: React.FC<InputProps> = ({
+  icon,
+  placeholder,
+  type,
+  value,
+  onChange,
+}) => {
   return (
     <InputWrapper>
       <IconWrapper>{icon}</IconWrapper>
-      <StyledInput placeholder={placeholder} type={type} />
+      <StyledInput
+        placeholder={placeholder}
+        type={type}
+        value={value}
+        onChange={onChange}
+        autoComplete="off"
+        required
+        disabled={false}
+      />
     </InputWrapper>
   );
 };
