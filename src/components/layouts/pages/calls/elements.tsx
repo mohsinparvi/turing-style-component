@@ -33,7 +33,6 @@ const StyleTableWrapper = styled.div`
   display: flex;
   flex-direction: column;
 
-  /* Mobile first: smallest screens first */
   @media (max-width: 480px) {
     height: calc(100dvh + 700px);
   }
