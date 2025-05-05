@@ -9,7 +9,7 @@ import { Container } from "@/components/styles";
 import { CallRecord } from "@/lib/types";
 import { formatDuration } from "@/lib/helpers";
 import AddNotes from "./add-notes";
-import { StyleTags } from "./elements";
+import { StyleTags, StyleText } from "./elements";
 
 const CallsDatatable = () => {
   const [callsData, setCallsData] = useState<CallRecord[]>([]);
@@ -224,7 +224,7 @@ const CallsDatatable = () => {
   return (
     <CallSection>
       <Container>
-        <h1 className="title">Turing Technologies Frontend Test</h1>
+        <StyleText className="title">Turing Technologies Frontend Test</StyleText>
         <CallHeader>
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ marginRight: 8 }}>Filter by:</span>

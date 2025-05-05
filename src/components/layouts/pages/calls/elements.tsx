@@ -14,4 +14,16 @@ const StyleTags = styled(Tag)<{ $isArchived?: boolean }>`
   font-weight: 400;
   cusor: pointer;
 `;
-export { StyledButton, StyleTags };
+
+const StyleText = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #000;
+  @media (max-width: 768px) {
+    text-align: center;
+  }
+  @media (max-width: 480px) {
+    text-align: center;
+  }
+`;
+export { StyledButton, StyleTags, StyleText };
