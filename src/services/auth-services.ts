@@ -1,10 +1,6 @@
 //login
 
 const userLogin = async (email: string, password: string) => {
-  console.log(
-    "process.env.NEXT_PUBLIC_BASE_URL",
-    process.env.NEXT_PUBLIC_BASE_URL
-  );
   const response = await fetch(
     `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
     {

@@ -54,7 +54,6 @@ const LoginForn = () => {
       router.push("/calls");
       resetData();
     } catch (err) {
-      console.log("err");
       setIsLoading(false);
       if (err instanceof Error) {
         setValidationErrors({ email: err.message });
