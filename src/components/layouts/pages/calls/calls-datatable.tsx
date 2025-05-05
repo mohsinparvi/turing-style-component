@@ -231,20 +231,26 @@ const CallsDatatable = () => {
               </Button>
             </Dropdown>
           </div>
-          <Table
-            columns={columns}
-            dataSource={callsData}
-            rowKey="id"
-            pagination={{
-              ...pagination,
-              itemRender,
-              showSizeChanger: false,
-              position: ["bottomCenter"],
+          <div
+            style={{
+              overflow: "auto",
             }}
-            loading={loading}
-            onChange={handleTableChange}
-            bordered
-          />
+          >
+            <Table
+              columns={columns}
+              dataSource={callsData}
+              rowKey="id"
+              pagination={{
+                ...pagination,
+                itemRender,
+                showSizeChanger: false,
+                position: ["bottomCenter"],
+              }}
+              loading={loading}
+              onChange={handleTableChange}
+              bordered
+            />
+          </div>
           <div
             style={{
               textAlign: "center",
