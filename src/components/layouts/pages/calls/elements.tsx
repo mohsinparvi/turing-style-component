@@ -10,8 +10,8 @@ const StyledButton = styled(Button)`
 const StyleTags = styled(Tag)<{ $isArchived?: boolean }>`
   background-color: ${(props) => (props.$isArchived ? "#edfbfa" : "#f0f0f0")};
   color: ${(props) => (props.$isArchived ? "#42d2c3" : "#4b5563")};
-  padding: 0.5rem 1rem;
-  font-weight: 500;
+  padding: 0.2rem 0.5rem;
+  font-weight: 400;
   cusor: pointer;
 `;
 export { StyledButton, StyleTags };
