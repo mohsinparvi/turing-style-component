@@ -1,15 +1,21 @@
 "use client";
 import { getCallData, UpdateStatus } from "@/services/call-service";
-import { Button, Dropdown, MenuProps, Space, Table } from "antd";
+import { Button, Dropdown, MenuProps, Pagination, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
-import type { TablePaginationConfig, TableProps } from "antd";
+import type { TableProps } from "antd";
 import { CallHeader, CallSection } from "./calls.style";
 import { Container } from "@/components/styles";
 import { CallRecord } from "@/lib/types";
 import { formatDuration } from "@/lib/helpers";
 import AddNotes from "./add-notes";
-import { StyleTags, StyleText } from "./elements";
+import {
+  StylePaginationWrapper,
+  StyleTableWrapper,
+  StyleTags,
+  StyleText,
+  TableWrapper,
+} from "./elements";
 
 const CallsDatatable = () => {
   const [callsData, setCallsData] = useState<CallRecord[]>([]);
@@ -69,10 +75,11 @@ const CallsDatatable = () => {
   const handleMenuClick: MenuProps["onClick"] = (e) => {
     setFilter(e.key);
   };
-  const handleTableChange = (newPagination: TablePaginationConfig) => {
+  const handlePaginationChange = (page: number, pageSize: number) => {
     setPagination({
       ...pagination,
-      current: newPagination.current || 1,
+      current: page,
+      pageSize,
     });
   };
   const handleStatusUpdate = async (id: string, status: boolean) => {
@@ -224,7 +231,9 @@ const CallsDatatable = () => {
   return (
     <CallSection>
       <Container>
-        <StyleText className="title">Turing Technologies Frontend Test</StyleText>
+        <StyleText className="title">
+          Turing Technologies Frontend Test
+        </StyleText>
         <CallHeader>
           <div style={{ display: "flex", alignItems: "center" }}>
             <span style={{ marginRight: 8 }}>Filter by:</span>
@@ -240,26 +249,33 @@ const CallsDatatable = () => {
               </Button>
             </Dropdown>
           </div>
-          <div
-            style={{
-              overflow: "auto",
-            }}
-          >
-            <Table
-              columns={columns}
-              dataSource={callsData}
-              rowKey="id"
-              pagination={{
-                ...pagination,
-                itemRender,
-                showSizeChanger: false,
-                position: ["bottomCenter"],
-              }}
-              loading={loading}
-              onChange={handleTableChange}
-              bordered
-            />
-          </div>
+          <StyleTableWrapper>
+            <TableWrapper>
+              <Table
+                columns={columns}
+                dataSource={callsData}
+                rowKey="id"
+                // pagination={{
+                //   ...pagination,
+                //   itemRender,
+                //   showSizeChanger: false,
+                //   position: ["bottomCenter"],
+                // }}
+                pagination={false}
+                loading={loading}
+                // onChange={handleTableChange}
+                bordered
+              />
+            </TableWrapper>
+            <StylePaginationWrapper>
+              <Pagination
+                {...pagination}
+                itemRender={itemRender}
+                showSizeChanger={false}
+                onChange={handlePaginationChange}
+              />
+            </StylePaginationWrapper>
+          </StyleTableWrapper>
           <div
             style={{
               textAlign: "center",
