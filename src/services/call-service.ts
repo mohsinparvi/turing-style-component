@@ -49,4 +49,23 @@ const AddNotesApi = async (id: string, content: string) => {
   return data;
 };
 
-export { getCallData, AddNotesApi };
+const UpdateStatus = async (id: string, status: boolean) => {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BASE_URL}/calls/${id}/archive`,
+    {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${getCookie("accessToken")}`,
+      },
+      body: JSON.stringify({ status }),
+    }
+  );
+  if (!response.ok) {
+    throw new Error("Login failed");
+  }
+  const data = await response.json();
+  return data;
+};
+
+export { getCallData, AddNotesApi, UpdateStatus };

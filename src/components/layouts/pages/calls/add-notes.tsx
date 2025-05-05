@@ -4,6 +4,7 @@ import { Modal, Button, Input, Divider, Typography, Row, Col } from "antd";
 import { AddNotesProps } from "@/lib/types";
 import { AddNotesApi } from "@/services/call-service";
 import { formatDuration } from "@/lib/helpers";
+import { StyledButton } from "./elements";
 
 const { TextArea } = Input;
 const { Title, Text } = Typography;
@@ -15,6 +16,8 @@ const AddNotes: FC<AddNotesProps> = ({
   from,
   to,
   via,
+  notes,
+  getData,
 }) => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -32,14 +35,20 @@ const AddNotes: FC<AddNotesProps> = ({
     { label: "To", value: to },
     { label: "Via", value: via },
   ];
-
+  // const getNotes=async()=>{
+  //   const response = await AddNotesApi(id, content);
+  //   if (response) {
+  //     setOpen(false);
+  //     setContent("");
+  //   }
+  // }
   const handleSaveNote = async () => {
     setLoading(true);
     try {
       const response = await AddNotesApi(id, content);
       if (response) {
-        setOpen(false);
         setContent("");
+        getData();
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -93,16 +102,16 @@ const AddNotes: FC<AddNotesProps> = ({
         open={open}
         onCancel={handleCancel}
         footer={[
-          <Button
+          <StyledButton
             key="submit"
+            color="primary"
             type="primary"
             loading={loading}
             onClick={handleSaveNote}
             disabled={content.length === 0}
-            style={{ width: "100%", backgroundColor: "#2563eb" }}
           >
             Save
-          </Button>,
+          </StyledButton>,
         ]}
         width={720}
       >
@@ -123,6 +132,9 @@ const AddNotes: FC<AddNotesProps> = ({
         </Row>
         <div style={{ marginTop: 24 }}>
           <Text style={{ display: "block", marginBottom: 8 }}>Notes</Text>
+          {notes.map((note) => (
+            <div key={note.id}>{note.content}</div>
+          ))}
           <TextArea
             rows={4}
             placeholder="Add your notes here..."

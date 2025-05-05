@@ -1,5 +1,5 @@
 "use client";
-import { getCallData } from "@/services/call-service";
+import { getCallData, UpdateStatus } from "@/services/call-service";
 import { Button, Dropdown, MenuProps, Space, Table } from "antd";
 import React, { useEffect, useState } from "react";
 import { DownOutlined } from "@ant-design/icons";
@@ -9,115 +9,7 @@ import { Container } from "@/components/styles";
 import { CallRecord } from "@/lib/types";
 import { formatDuration } from "@/lib/helpers";
 import AddNotes from "./add-notes";
-
-const columns: TableProps<CallRecord>["columns"] = [
-  {
-    title: "CALL TYPE",
-    dataIndex: "call_type",
-    key: "call_type",
-    render: (callType: string) => {
-      const colorMap: Record<string, string> = {
-        answered: "green",
-        missed: "red",
-        voicemail: "blue",
-      };
-
-      return (
-        <span
-          style={{
-            color: colorMap[callType] || "blue",
-            textTransform: "capitalize",
-          }}
-        >
-          {callType}
-        </span>
-      );
-    },
-  },
-  {
-    title: "DIRECTION",
-    dataIndex: "direction",
-    key: "direction",
-    render: (direction: string) => (
-      <span style={{ color: "#1e40af", textTransform: "capitalize" }}>
-        {direction}
-      </span>
-    ),
-  },
-  {
-    title: "DURATION",
-    dataIndex: "duration",
-    key: "duration",
-    render: (duration: string) => {
-      const time = formatDuration(Number(duration));
-      return (
-        <div>
-          {time}
-          <div style={{ fontSize: "0.75rem", color: "#1e40af" }}>
-            ({duration} seconds)
-          </div>
-        </div>
-      );
-    },
-  },
-  {
-    title: "FROM",
-    dataIndex: "from",
-    key: "from",
-  },
-  {
-    title: "TO",
-    dataIndex: "to",
-    key: "to",
-  },
-  {
-    title: "VIA",
-    dataIndex: "via",
-    key: "via",
-  },
-  {
-    title: "CREATED AT",
-    dataIndex: "created_at",
-    key: "created_at",
-    render: (createdAt: string) => {
-      return <div style={{ color: "#4b5563" }}>{createdAt.split("T")[0]}</div>;
-    },
-  },
-  {
-    title: "STATUS",
-    dataIndex: "is_archived",
-    key: "is_archived",
-    render: (isArchived: boolean) => (
-      <div
-        style={{
-          backgroundColor: isArchived ? "#ecfeff" : "#f3f4f6",
-          color: isArchived ? "#06b6d4" : "#4b5563",
-          textTransform: "capitalize",
-          borderRadius: "0.375rem",
-          padding: "0.5rem",
-          textAlign: "center",
-        }}
-      >
-        {isArchived ? "Archived" : "UnArchived"}
-      </div>
-    ),
-  },
-  {
-    title: "ACTIONS",
-    dataIndex: "id",
-    key: "actions",
-    render: (id: string, record: CallRecord) => (
-      <AddNotes
-        id={id}
-        call_type={record.call_type}
-        duration={record.duration}
-        from={record.from}
-        to={record.to}
-        via={record.via}
-      />
-    ),
-  },
-];
+import { StyleTags } from "./elements";
 
 const CallsDatatable = () => {
   const [callsData, setCallsData] = useState<CallRecord[]>([]);
@@ -129,7 +21,6 @@ const CallsDatatable = () => {
     pageSize: 10,
     total: 0,
   });
-
   const getData = async (page: number, pageSize: number) => {
     try {
       setLoading(true);
@@ -146,7 +37,7 @@ const CallsDatatable = () => {
       setLoading(false);
     }
   };
-
+  console.log("callsData", callsData);
   useEffect(() => {
     getData(pagination.current, pagination.pageSize);
   }, [pagination.current]);
@@ -184,6 +75,14 @@ const CallsDatatable = () => {
       current: newPagination.current || 1,
     });
   };
+  const handleStatusUpdate = async (id: string, status: boolean) => {
+    try {
+      await UpdateStatus(id, status);
+      getData(pagination.current, pagination.pageSize);
+    } catch (error) {
+      console.error("Error updating status:", error);
+    }
+  };
   const itemRender = (
     page: number,
     type: "page" | "prev" | "next" | "jump-prev" | "jump-next",
@@ -212,6 +111,116 @@ const CallsDatatable = () => {
     }
     return originalElement;
   };
+
+  const columns: TableProps<CallRecord>["columns"] = [
+    {
+      title: "CALL TYPE",
+      dataIndex: "call_type",
+      key: "call_type",
+      render: (callType: string) => {
+        const colorMap: Record<string, string> = {
+          answered: "green",
+          missed: "red",
+          voicemail: "blue",
+        };
+
+        return (
+          <span
+            style={{
+              color: colorMap[callType] || "blue",
+              textTransform: "capitalize",
+            }}
+          >
+            {callType}
+          </span>
+        );
+      },
+    },
+    {
+      title: "DIRECTION",
+      dataIndex: "direction",
+      key: "direction",
+      render: (direction: string) => (
+        <span style={{ color: "#1e40af", textTransform: "capitalize" }}>
+          {direction}
+        </span>
+      ),
+    },
+    {
+      title: "DURATION",
+      dataIndex: "duration",
+      key: "duration",
+      render: (duration: string) => {
+        const time = formatDuration(Number(duration));
+        return (
+          <div>
+            {time}
+            <div style={{ fontSize: "0.75rem", color: "#1e40af" }}>
+              ({duration} seconds)
+            </div>
+          </div>
+        );
+      },
+    },
+    {
+      title: "FROM",
+      dataIndex: "from",
+      key: "from",
+    },
+    {
+      title: "TO",
+      dataIndex: "to",
+      key: "to",
+    },
+    {
+      title: "VIA",
+      dataIndex: "via",
+      key: "via",
+    },
+    {
+      title: "CREATED AT",
+      dataIndex: "created_at",
+      key: "created_at",
+      render: (createdAt: string) => {
+        return (
+          <div style={{ color: "#4b5563" }}>{createdAt.split("T")[0]}</div>
+        );
+      },
+    },
+    {
+      title: "STATUS",
+      dataIndex: "is_archived",
+      key: "is_archived",
+      render: (id: string, record: CallRecord) => (
+        <StyleTags
+          $isArchived={record.is_archived}
+          onClick={() => handleStatusUpdate(record.id, !record.is_archived)}
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          {record.is_archived ? "Archived" : "UnArchived"}
+        </StyleTags>
+      ),
+    },
+    {
+      title: "ACTIONS",
+      dataIndex: "id",
+      key: "actions",
+      render: (id: string, record: CallRecord) => (
+        <AddNotes
+          id={id}
+          call_type={record.call_type}
+          duration={record.duration}
+          from={record.from}
+          to={record.to}
+          via={record.via}
+          notes={record.notes}
+          getData={()=> getData(pagination.current, pagination.pageSize)}
+        />
+      ),
+    },
+  ];
   return (
     <CallSection>
       <Container>
