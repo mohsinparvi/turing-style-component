@@ -21,10 +21,11 @@ const CallsDatatable = () => {
     pageSize: 10,
     total: 0,
   });
-  const getData = async (page: number, pageSize: number) => {
+  const offset = (pagination.current - 1) * pagination.pageSize;
+  const getData = async (pageSize: number) => {
     try {
       setLoading(true);
-      const response = await getCallData(page - 1, pageSize); // Adjusting for zero-based indexing
+      const response = await getCallData(offset, pageSize); // Adjusting for zero-based indexing
       setOriginalData(response.nodes);
       setCallsData(response.nodes);
       setPagination({
@@ -37,9 +38,8 @@ const CallsDatatable = () => {
       setLoading(false);
     }
   };
-  console.log("callsData", callsData);
   useEffect(() => {
-    getData(pagination.current, pagination.pageSize);
+    getData(pagination.pageSize);
   }, [pagination.current]);
 
   useEffect(() => {
@@ -78,7 +78,7 @@ const CallsDatatable = () => {
   const handleStatusUpdate = async (id: string, status: boolean) => {
     try {
       await UpdateStatus(id, status);
-      getData(pagination.current, pagination.pageSize);
+      getData(pagination.pageSize);
     } catch (error) {
       console.error("Error updating status:", error);
     }
@@ -216,7 +216,7 @@ const CallsDatatable = () => {
           to={record.to}
           via={record.via}
           notes={record.notes}
-          getData={()=> getData(pagination.current, pagination.pageSize)}
+          getData={() => getData(pagination.pageSize)}
         />
       ),
     },
